@@ -79,7 +79,7 @@ def savitzky_golay_smoothing(nm_array, timedelay, noise_coefficient):
     Parameters
     ----------
         nm_array: wavelength array
-        timedelay: time delay array
+        timedelay: intensity array
         noise_coefficient: the noise coefficients that user want to generate
     Returns
     -------
@@ -96,7 +96,7 @@ def savitzky_golay_smoothing(nm_array, timedelay, noise_coefficient):
     plt.figure(figsize=(15,8))
     plt.title('Peak Smoothening', fontsize = 16, fontweight = 'bold')
     plt.xlabel('Wavelength (nm)', fontsize = 16, fontweight = 'bold')
-    plt.ylabel('Time delay (ps)', fontsize = 16, fontweight = 'bold')
+    plt.ylabel('Intensity', fontsize = 16, fontweight = 'bold')
     plt.xticks(fontsize = 14)
     plt.yticks(fontsize = 14)
     plt.plot(nm_array,ydata)
@@ -125,7 +125,7 @@ def Earth_Smoothing(nm_array, timedelay, noise_coefficient):
     Parameters
     ----------
         nm_array: wavelength array
-        timedelay: time delay array
+        timedelay: intensity array
         noise_coefficient: the noise coefficients that user want to generate
     Returns
     -------
@@ -152,7 +152,7 @@ def Earth_Smoothing(nm_array, timedelay, noise_coefficient):
     plt.figure(figsize=(15,8))
     plt.title('Peak Smoothening', fontsize = 16, fontweight = 'bold')
     plt.xlabel('Wavelength (nm)', fontsize = 16, fontweight = 'bold')
-    plt.ylabel('Time delay (ps)', fontsize = 16, fontweight = 'bold')
+    plt.ylabel('Intensity', fontsize = 16, fontweight = 'bold')
     plt.xticks(fontsize = 14)
     plt.yticks(fontsize = 14)
     plt.plot(nm_array, ydata, 'r.')
