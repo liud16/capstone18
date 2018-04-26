@@ -208,7 +208,7 @@ def peak_matrix_mod(nm_array,data_matrix,num_timeslice, threshold, mindist):
 
 
 num_timeslice = np.shape(data_matx)[1]
-peak_idx_matx, peak_height_matx, peak_fwhm_matx = peak_matrix(datanm,data_matx,num_timeslice, 0.3, 300)
+peak_idx_matx, peak_height_matx, peak_fwhm_matx = peak_matrix(datanm,data_matx,num_timeslice, 0.0, 300)
 
 peak1_idx = peak_idx_matx[:, 0]
 peak1_idx_gradcorr= np.copy(peak1_idx)
@@ -240,12 +240,45 @@ plt.figure()
 plt.plot(datatime, peakpos, 'o')
 
 
+""""""
+def peakposition_corr(peak_idx_matx):
+    
+    peak1_idx = peak_idx_matx[:, 0]
+    peak1_idx_gradient = np.gradient(peak1_idx)
+    
+    num_wrongpeaks = 1
+    while num_wrongpeaks != 0:
+        fix_peak_idx = []
+        for i, gradient in enumerate(peak1_idx_gradient):
+            if np.abs(gradient) >= 10: #threshold for difference in peak idx
+                fix_peak_idx += [i]
+            else:
+                fix_peak_idx = fix_peak_idx
+    
+        num_wrongpeaks = len(fix_peak_idx)
+        for i in range(num_wrongpeaks):
+            if fix_peak_idx[i] == np.shape(peak1_idx)[0]-1:
+                peak1_idx[fix_peak_idx[i]] = peak1_idx[fix_peak_idx[i]]
+            else:
+                peak1_idx[fix_peak_idx[i]+1] = peak1_idx[fix_peak_idx[i]]
+        peak1_idx_gradient = np.gradient(peak1_idx)
+    
+#    plt.figure()
+#    plt.plot(datatime, peak1_idx, 'o')
+    
+    peakpos = [datanm[int(idx)] for idx in peak1_idx]
+
+    return peakpos    
+
+
+
+
 peak1_height = peak_height_matx[:, 1]
 #peak1_idx_ediff = np.ediff1d(peak1_idx)
 peak1_height_gradient = np.ediff1d(peak1_height)
 
 
-#height doesn't work yet
+"""#height doesn't work yet
 mean_height = 0.1
 peak1_height_gradcorr = np.copy(peak1_height)
 num_wrongheights = 1
@@ -272,3 +305,28 @@ plt.figure()
 plt.plot(datatime, peak1_height, 'o')
 plt.plot(datatime, peak1_height_gradcorr, 'o', label = 'original')
 plt.legend()
+"""
+
+peak_height1 = peak_height_matx[:, 0]
+peak_height2 = peak_height_matx[:, 1]
+sameheight = np.where(peak_height1 == peak_height2)[0]
+
+mean1 = np.mean(peak_height1)
+mean2 = np.mean(peak_height2)
+
+if mean1 < mean2:
+    peak_disappear = peak_height1
+else:
+    peak_disappear = peak_height2
+    
+len_repeat = len(sameheight)
+#print (len_repeat)
+for i in range(len_repeat):
+    heightidx = sameheight[i]
+
+#    print (heightidx)
+    peak_height2[heightidx] = peak_height2[sameheight[0]-1]
+#    print (peak_height2[heightidx])
+
+plt.figure()
+plt.plot(datatime, peak_height2)
