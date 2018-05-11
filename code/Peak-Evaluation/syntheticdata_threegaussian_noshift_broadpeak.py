@@ -220,7 +220,7 @@ data_matrix_3 = data_matrix(nm, time_coeff_3, species_3)
 
 #generate a two-gaussian mixture model by adding 
 #the two gaussians above
-data_matrix = data_matrix_1 + data_matrix_2 + data_matrix_3
+data_matrix_tot = data_matrix_1 + data_matrix_2 + data_matrix_3
 
 
 
@@ -237,7 +237,7 @@ plt.ylabel('Time delay (ps)', fontsize = 16, fontweight = 'bold')
 plt.xticks(fontsize = 14)
 plt.yticks(fontsize = 14)
 nmi_9, timedelayi_9, z_min_9, z_max_9 = twodcontourplot(nm, time, data_matrix)
-plt.pcolormesh(nmi_9, timedelayi_9, data_matrix, cmap = 'PiYG', vmin=z_min_9, vmax=z_max_9)
+plt.pcolormesh(nmi_9, timedelayi_9, data_matrix_tot, cmap = 'PiYG', vmin=z_min_9, vmax=z_max_9)
 plt.colorbar()
 plt.tight_layout(pad=0.25, h_pad=None, w_pad=None, rect=None)
 
@@ -245,8 +245,8 @@ plt.tight_layout(pad=0.25, h_pad=None, w_pad=None, rect=None)
 """output data"""
 #1st columns: wavelength
 #1st rows: time
-output = np.empty((np.shape(data_matrix)[0]+1, np.shape(data_matrix)[1]+1))
-output[1:, 1:] = data_matrix
+output = np.empty((np.shape(data_matrix_tot)[0]+1, np.shape(data_matrix_tot)[1]+1))
+output[1:, 1:] = data_matrix_tot
 output[0, 1:] = time
 output[1:, 0] = nm
-outfile = np.savetxt('threegaussian_broadpeak.txt', output, fmt='%.3e', delimiter='\t')
+#outfile = np.savetxt('threegaussian_broadpeak.txt', output, fmt='%.3e', delimiter='\t')
