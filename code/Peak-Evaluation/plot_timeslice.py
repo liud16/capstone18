@@ -38,7 +38,7 @@ def plot_timeslice(nm, time, select_times, data):
     return data_timeslice
 
 #load data
-nm, time, data = loadtxt('threegaussian_spectralshift_widthchange_posonly.txt')
+nm, time, data = loadtxt('threegaussian_broadpeak.txt')
 
 #select time points to plot
 times = [1, 10, 100, 1000, 3000, 5000]
