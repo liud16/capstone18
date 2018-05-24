@@ -1,40 +1,13 @@
 import numpy as np
-import peakutils
-from peakutils.plot import plot as pplot
-from matplotlib import pyplot as plt
-%matplotlib inline
-from scipy.optimize import curve_fit
-from scipy import interpolate
 import pandas as pd
+import find_peaks as findpeak
 
-
-# get earth-peak position
-def earth_peak_matrix(nm_array,data_matrix,noise_coefficient,threshold, min_dist):
-    num_array = np.shape(data_matrix)[1]
-    
-    true_peak = []
-    smooth_peak = []
-    
-    for i in range(num_array):
-        data_array = data_matrix[:, i]
-        noise_array = add_noise(nm_array, data_array, noise_coefficient)
-        smooth_array = Earth_Smoothing(nm_array, data_array,noise_coefficient)
-        
-        indexes=findpeak(data_array, threshold, min_dist).tolist()
-        true_peak.append(indexes)
-        
-        indexes1=findpeak(smooth_array, threshold, min_dist).tolist()
-        smooth_peak.append(indexes1)
-                
-        # transfer to dataframe
-        true_df=pd.DataFrame(true_peak)
-        smooth_df=pd.DataFrame(smooth_peak)
-    
-    return true_df, smooth_df
-
+def find_nearest(array,value):
+    idx = (np.abs(array-value)).argmin()
+    return idx
 
  # get peak height and fwhm info
- def peakchar(data_nm, data_z_array, peak_index):
+def peakchar(data_nm, data_z_array, peak_index):
     """find the peak width, and intensity"""
     num_peaks = len(peak_index)
     
@@ -69,11 +42,15 @@ def earth_peak_matrix(nm_array,data_matrix,noise_coefficient,threshold, min_dist
     return height, fwhm
 
 
- def peak_matrix(nm_array,data_matrix, threshold, mindist):
-    """find peaks in a data matrix"""
+def peak_matrix(nm_array,data_matrix, threshold, mindist):
+    """find peaks in a data matrix
+    and calculate the height and width of the peaks"""
+    
     peak_idx_matx = []
     peak_height_matx = []
     peak_fwhm_matx = []
+    
+    num_timeslice = np.shape(data_matrix)[1]
     
     for i in range(num_timeslice):
         data_timeslice = data_matrix[:, i]
