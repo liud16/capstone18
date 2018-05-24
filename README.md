@@ -118,7 +118,7 @@ def earth_Smoothing(nm_array, y_array,noise_coefficient):
     Parameters
     ----------
         nm_array: wavelength array
-        y-delay: intensity array
+        y_array: intensity array
         noise_coefficient: the scale of noise
 
     Returns
