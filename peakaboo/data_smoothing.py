@@ -1,6 +1,7 @@
 import numpy as np
 from matplotlib import pyplot as plt
 from pyearth import Earth
+import pandas as pd
 
 # load some data
 def load_data(data_filename):
@@ -32,7 +33,6 @@ def earth_smoothing(nm_array, y_array):
     -------
         a smoothing curve from the original noise curve
     """
-    from pyearth import Earth
    # Fit an Earth model
     model = Earth(smooth=True)
     np.random.seed(42)
@@ -53,7 +53,7 @@ def earth_smooth_matrix(nm_array, data_matrix):
 
     for i in range(500):
         data_array = data_matrix[:, i]
-        smooth_array = Earth_Smoothing(nm_array, data_array).tolist()
+        smooth_array = earth_smoothing(nm_array, data_array).tolist()
 
         # get smooth dataframe
         df = pd.DataFrame(smooth_array, columns = [i])
