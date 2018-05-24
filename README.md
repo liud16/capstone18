@@ -16,7 +16,7 @@ peak smoothing --"pyearth"/"astropy", perform peak detection --"peakutils", peak
 When you're selecting an algorithm, you might consider:
 
 * **The function interface.** You may want the function to work on smoothing the noise TA data or may search and detect the peak values of dataset during different timeslices? or you want to correct peak values? and seek for relationship between peaks?
-* **The accuracy.** Does user want extra accuarcy? 
+* **The accuracy.** Does user want extra accuarcy?
 * **The input info support**. Does the algorithm require user to define initial guess ? Which ones do you need?
 
 --------------------------------
@@ -37,7 +37,7 @@ def peak_matrix(nm_array,data_matrix,num_timeslice, threshold, mindist):
         peak_idx = findpeak(data_timeslice, threshold, mindist)
         peak_idx_matx[i, :] = peak_idx
         peak_height, peak_fwhm = peakchar(nm, data_timeslice, peak_idx)
-        peak_height_matx[i, :], peak_fwhm_matx[i, :] = peak_height, peak_fwhm 
+        peak_height_matx[i, :], peak_fwhm_matx[i, :] = peak_height, peak_fwhm
     return peak_idx_matx, peak_height_matx, peak_fwhm_matx
 
 peak_idx_matx, peak_height_matx, peak_fwhm_matx = peak_matrix(nm,z,num_timeslice, 0, 0)
@@ -89,14 +89,14 @@ def astropy_smoothing(nm_array, timedelay, noise_coefficient,gg_init):
     plt.yticks(fontsize = 14)
     plt.axhline(y=0, color='red', linestyle='-')
     plt.plot(nm_array,timedelay-gg_fit(nm_array), color='blue')
-    
+
     return gg_fit(nm_array)
 ```
 
 [Documentation](http://docs.astropy.org/en/stable/modeling/).
 [Sample code](http://localhost:8888/edit/getbest/py.docs/astropy.py).
 
-This function gives approach to smoothen noisy data curve to be properly smoothing one which close to true dataset. Compare to other algorithms,its smoothing effect appears to more obvious and direct. However it may actually need a initial guess on noisy data at first step.
+This function smoothens the original noisy data while not losing the information. Compared to other smoothening algorithms, *astropy* can best preserve the shape of the curve and effectively reduces the noise. However, the algorithm requires a rough initial guess of the peak info of the data.
 
 
 ## pyearth.peak.smoothing
@@ -107,21 +107,23 @@ This function gives approach to smoothen noisy data curve to be properly smoothi
 def earth_Smoothing(nm_array, y_array,noise_coefficient):        
     """
     ============================================
-     Plotting derivatives of simple sine function
+     Smoothen noisy data using py-earth,
+     based on multivariate adaptive regression spline
     ============================================
-     A simple example plotting a fit of the sine function
-    and the derivatives computed by Earth.   
+
     Notes
     -----   
-    generates a denoise curve from the TA data
+    generates a de-noised curve from the TA data
+
     Parameters
     ----------
         nm_array: wavelength array
-        timedelay: time delay array
-        noise_coefficient: the noise coefficients that user want to generate
+        y-delay: intensity array
+        noise_coefficient: the scale of noise
+
     Returns
     -------
-        a smoothing curve from the original noise curve   
+        a smoothened curve from the original noisy curve   
     """
     from pyearth import Earth
    # Fit an Earth model
@@ -134,17 +136,11 @@ def earth_Smoothing(nm_array, y_array,noise_coefficient):
     print(model.summary())
    # Get the predicted values and derivatives
     y_hat = model.predict(nm_array)
-    
+
     return  y_hat
 ```
 
 [Documentation](https://contrib.scikit-learn.org/py-earth/content.html).
 [Sample code](http://localhost:8888/edit/getbest/py.docs/py-earth.py).
 
-This function searches for peaks based on convoluted value compared to neighbouring points and returns those peaks whose properties match optionally specified conditions (minimum and / or maximum) for their height, width, indexs, threshold and distance to each other.
-
-
-
-
-
-
+This function searches for peaks based on convoluted value compared to neighboring points and returns those peaks whose properties match optionally specified conditions (minimum and/or maximum) for their height, width, indices, threshold and distance to each other.
