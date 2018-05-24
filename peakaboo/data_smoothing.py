@@ -13,22 +13,23 @@ def load_data(data_filename):
 
     return data_nm, data_time, data_z
 
+
 def earth_smoothing(nm_array, y_array):
     """
     =============================================
-     Plotting derivatives of simple sine function
+    Smoothen noisy data using py-earth,
+    based on multivariate adaptive regression spline
     =============================================
 
-     A simple example plotting a fit of the sine function
-    and the derivatives computed by Earth.
 
     Notes
     -----
-    generates a denoise curve from the TA data
+    generates a de-noised curve from the TA data
+    
     Parameters
     ----------
         nm_array: wavelength array
-        timedelay: time delay array
+        y-array: intensity array
     Returns
     -------
         a smoothing curve from the original noise curve
@@ -47,11 +48,12 @@ def earth_smoothing(nm_array, y_array):
 
     return  y_hat
 
+
 def earth_smooth_matrix(nm_array, data_matrix):
     num_array = np.shape(data_matrix)[0]
     smooth_matx = pd.DataFrame(np.empty((num_array,1)), columns = ['a'])
 
-    for i in range(500):
+    for i in range(num_array):
         data_array = data_matrix[:, i]
         smooth_array = earth_smoothing(nm_array, data_array).tolist()
 
