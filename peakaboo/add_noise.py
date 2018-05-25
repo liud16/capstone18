@@ -17,7 +17,7 @@ def add_noise(nm_array, y_array, noise_coefficient):
     return y_proc
 
 #add noise a matrix
-def smooth_matrix(nm_array,data_matrix,noise_coefficient):
+def noise_matrix(nm_array,data_matrix,noise_coefficient):
     num_array = np.shape(data_matrix)[1]
     noise_matx = np.empty_like(data_matrix)
 
