@@ -53,8 +53,8 @@ def earth_smooth_matrix(nm_array, data_matrix):
     num_array = np.shape(data_matrix)[1]
     smooth_matx = pd.DataFrame(np.empty((num_array,1)), columns = ['a'])
 
-    print (num_array)
-    for i in range(1):
+    #print (num_array)
+    for i in range(num_array):
         data_array = data_matrix[:, i]
         smooth_array = earth_smoothing(nm_array, data_array).tolist()
 
