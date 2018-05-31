@@ -6,9 +6,9 @@ peak smoothing --"pyearth"/"astropy", perform peak detection --"peakutils", peak
 
 | Algorithm | Integration | Filters | Comments /(`restriction`)|
 |-----------| ----------- | ------- | -----------------------  |
-| [peakutils.peak.indexes](#peakutilspeakindexes) | PyPI package PeakUtils<br> Depends on Scipy | Amplitude threshold<br>Minimum distance |limited peak return infos<br>indexes only |
-| [astropy.peak.smoothing](#astropypeaksmoothing) | astropy.modeling Package | parameter constraints |requires initial<br> noisy data guess |
 | [pyearth.peak.smoothing](#pyearthpeaksmoothing) | py-earth package<br>Splines algorithm | Multivariate Adaptive Regression<br>Splines algorithm | less trivial<br>direct than other algorithms|
+| [astropy.peak.smoothing](#astropypeaksmoothing) | astropy.modeling Package | parameter constraints |requires initial<br> noisy data guess |
+| [peakutils.peak.indexes](#peakutilspeakindexes) | PyPI package PeakUtils<br> Depends on Scipy | Amplitude threshold<br>Minimum distance |limited peak return infos<br>indexes only |
 
 
 ## How to make your choice?
@@ -21,37 +21,56 @@ When you're selecting an algorithm, you might consider:
 
 --------------------------------
 
-## peakutils.peak.indexes
 
-![](https://raw.github.com/Tutu1995/getbest/images/Peakutils.png)
+## pyearth.peak.smoothing
+This function searches for peaks based on convoluted value compared to neighboring points and returns those peaks whose properties match optionally specified conditions (minimum and/or maximum) for their height, width, indices, threshold and distance to each other.
+
+![](http://localhost:8888/view/getbest/images/astropy.png)
+
 ```python
-filename = '20180418_twogaussian_spectralshfit.txt'
-nm, time, z = loaddata(filename)
-num_timeslice = 3
-def peak_matrix(nm_array,data_matrix,num_timeslice, threshold, mindist):
-    peak_idx_matx = np.zeros((num_timeslice,2))
-    peak_height_matx = np.empty_like(peak_idx_matx)
-    peak_fwhm_matx = np.empty_like(peak_height_matx)
-    for i in range(num_timeslice):
-        data_timeslice = data_matrix[:, i]
-        peak_idx = findpeak(data_timeslice, threshold, mindist)
-        peak_idx_matx[i, :] = peak_idx
-        peak_height, peak_fwhm = peakchar(nm, data_timeslice, peak_idx)
-        peak_height_matx[i, :], peak_fwhm_matx[i, :] = peak_height, peak_fwhm
-    return peak_idx_matx, peak_height_matx, peak_fwhm_matx
+def earth_Smoothing(nm_array, y_array,noise_coefficient):        
+    """
+    ============================================
+     Smoothen noisy data using py-earth,
+     based on multivariate adaptive regression spline
+    ============================================
 
-peak_idx_matx, peak_height_matx, peak_fwhm_matx = peak_matrix(nm,z,num_timeslice, 0, 0)
+    Notes
+    -----   
+    generates a de-noised curve from the TA data
 
+    Parameters
+    ----------
+        nm_array: wavelength array
+        y_array: intensity array
+        noise_coefficient: the scale of noise
 
+    Returns
+    -------
+        a smoothened curve from the original noisy curve   
+    """
+    from pyearth import Earth
+   # Fit an Earth model
+    model = Earth(smooth=True)
+    np.random.seed(42)
+    ydata = y_array + noise_coefficient*np.random.normal(size=nm_array.size)
+    model.fit(nm_array, ydata)
+   # Print the model
+    print(model.trace())
+    print(model.summary())
+   # Get the predicted values and derivatives
+    y_hat = model.predict(nm_array)
+
+    return  y_hat
 ```
 
-[Documentation](http://peakutils.readthedocs.io/en/latest/).
-[Package](https://bitbucket.org/lucashnegri/peakutils).
-[Sample code](http://localhost:8888/edit/peakaboo/code/Peak-Smoothing/peakutils_2.py).
+[Documentation](https://contrib.scikit-learn.org/py-earth/content.html).
+[Sample code](http://localhost:8888/edit/getbest/py.docs/py-earth.py).
 
-This algorithm can be used as an equivalent of the MatLab `findpeaks` and will give easily give consistent results if you only need minimal distance and height filtering.
+
 
 ## astropy.peak.smoothing
+This function smoothens the original noisy data while not losing the information. Compared to other smoothening algorithms, *astropy* can best preserve the shape of the curve and effectively reduces the noise. However, the algorithm requires a rough initial guess of the peak info of the data.
 
 ![](http://localhost:8888/view/getbest/images/astropy.png)
 
@@ -96,51 +115,114 @@ def astropy_smoothing(nm_array, timedelay, noise_coefficient,gg_init):
 [Documentation](http://docs.astropy.org/en/stable/modeling/).
 [Sample code](http://localhost:8888/edit/getbest/py.docs/astropy.py).
 
-This function smoothens the original noisy data while not losing the information. Compared to other smoothening algorithms, *astropy* can best preserve the shape of the curve and effectively reduces the noise. However, the algorithm requires a rough initial guess of the peak info of the data.
 
 
-## pyearth.peak.smoothing
+## peakutils.peak.indexes
+This algorithm can be used as an equivalent of the MatLab `findpeaks` and will give easily give consistent results if you only need minimal distance and height filtering.
 
-![](http://localhost:8888/view/getbest/images/astropy.png)
-
+![](https://raw.github.com/Tutu1995/getbest/images/Peakutils.png)
 ```python
-def earth_Smoothing(nm_array, y_array,noise_coefficient):        
-    """
-    ============================================
-     Smoothen noisy data using py-earth,
-     based on multivariate adaptive regression spline
-    ============================================
+filename = '20180418_twogaussian_spectralshfit.txt'
+nm, time, z = loaddata(filename)
+num_timeslice = 3
+def peak_matrix(nm_array,data_matrix,num_timeslice, threshold, mindist):
+    peak_idx_matx = np.zeros((num_timeslice,2))
+    peak_height_matx = np.empty_like(peak_idx_matx)
+    peak_fwhm_matx = np.empty_like(peak_height_matx)
+    for i in range(num_timeslice):
+        data_timeslice = data_matrix[:, i]
+        peak_idx = findpeak(data_timeslice, threshold, mindist)
+        peak_idx_matx[i, :] = peak_idx
+        peak_height, peak_fwhm = peakchar(nm, data_timeslice, peak_idx)
+        peak_height_matx[i, :], peak_fwhm_matx[i, :] = peak_height, peak_fwhm
+    return peak_idx_matx, peak_height_matx, peak_fwhm_matx
 
-    Notes
-    -----   
-    generates a de-noised curve from the TA data
+peak_idx_matx, peak_height_matx, peak_fwhm_matx = peak_matrix(nm,z,num_timeslice, 0, 0)
 
-    Parameters
-    ----------
-        nm_array: wavelength array
-        y_array: intensity array
-        noise_coefficient: the scale of noise
 
-    Returns
-    -------
-        a smoothened curve from the original noisy curve   
-    """
-    from pyearth import Earth
-   # Fit an Earth model
-    model = Earth(smooth=True)
-    np.random.seed(42)
-    ydata = y_array + noise_coefficient*np.random.normal(size=nm_array.size)
-    model.fit(nm_array, ydata)
-   # Print the model
-    print(model.trace())
-    print(model.summary())
-   # Get the predicted values and derivatives
-    y_hat = model.predict(nm_array)
-
-    return  y_hat
 ```
 
-[Documentation](https://contrib.scikit-learn.org/py-earth/content.html).
-[Sample code](http://localhost:8888/edit/getbest/py.docs/py-earth.py).
+[Documentation](http://peakutils.readthedocs.io/en/latest/).
+[Package](https://bitbucket.org/lucashnegri/peakutils).
+[Sample code](http://localhost:8888/edit/peakaboo/code/Peak-Smoothing/peakutils_2.py).
 
-This function searches for peaks based on convoluted value compared to neighboring points and returns those peaks whose properties match optionally specified conditions (minimum and/or maximum) for their height, width, indices, threshold and distance to each other.
+
+
+## remove outliers in peak position
+Applying this function to the output (peak indices) from peakutils.peak.indexes removes outliers and sudden fluctuation in peak position
+```python
+def id_outliers_replacewith_interp(x_array, data, m, win_len):
+    reshape_x_array = []
+    reshape_data = []
+    quotient_array = np.empty(len(data))
+    remainder_array = np.empty(len(data))
+    quotient_array[0] = 0
+    remainder_array[0] = 0  
+    #print divmod(len(data), win_len)   
+    quotient_max = divmod(len(data), win_len)[0]
+    print (quotient_max)
+    #quotient_array_new = []
+    data_idx = np.arange(0, len(data), 1)
+    for i in range(1, len(data_idx)):
+        
+        quotient = divmod(data_idx[i], win_len)[0]
+        quotient_array[i] = quotient
+        remainder = divmod(data_idx[i], win_len)[1]
+        remainder_array[i] = remainder
+        
+        if quotient != quotient_array[i-1]:
+            newslice = data[i - win_len: i]
+            newslice_x = x_array[i - win_len: i]
+            #print newslice
+            reshape_data.append(newslice)
+            reshape_x_array.append(newslice_x)
+    
+        else:
+            pass
+    quotient_max_idx = np.where(quotient_array == quotient_max)
+    #print quotient_max_idx
+    reshape_data.append(data[quotient_max_idx[0]])
+    reshape_x_array.append(x_array[quotient_max_idx[0]])
+    #print reshape_data
+    reshape_data_shape = np.shape(reshape_data)[0]
+    #print reshape_data_shape
+    def id_outliers_and_delete(d,x, m):
+        d_mean = np.mean(d)  
+        d_stdev = np.std(d)
+        new_d = np.empty_like(d)    
+        
+        for i in range(len(d)):
+            d_pt = d[i]
+          
+            if abs(d_pt - d_mean) > m * d_stdev and x[i] != x_array[0] and x[i] != x_array[len(x_array) - 1]:
+                new_d[i] = 1
+            else:
+                new_d[i] = 0
+    
+        outlier_idx = np.nonzero(new_d)[0]
+        d_delete = np.delete(d, outlier_idx)
+        x_delete = np.delete(x, outlier_idx)
+        
+        #print data2[outlier_idx]
+        return x_delete, d_delete
+    
+    new_x_array = []
+    new_data = []
+    for i in range(reshape_data_shape):
+        new_data.append(id_outliers_and_delete(reshape_data[i],reshape_x_array[i], 1)[1])#(id_outliers_replacewith_mean(reshape_data[i], m))
+        new_x_array.append(id_outliers_and_delete(reshape_data[i],reshape_x_array[i],1)[0])
+    new_data_flat = np.concatenate(new_data[:-1]).ravel().tolist()#.flatten()
+    new_x_array_flat = np.concatenate(new_x_array[:-1]).ravel().tolist()#.flatten()
+    new_data_final = np.concatenate((new_data_flat, new_data[reshape_data_shape - 1]))
+    new_x_array_final = np.concatenate((new_x_array_flat, new_x_array[reshape_data_shape - 1]))
+    
+    new_data_final_interp = np.interp(x_array, new_x_array_final, new_data_final)    
+    
+    return new_data_final_interp
+
+
+def isotonic(x, y):
+    ir = IsotonicRegression()
+    y_ = ir.fit_transform(x, y)
+    
+    return y_
