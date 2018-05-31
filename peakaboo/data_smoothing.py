@@ -13,6 +13,16 @@ def load_data(data_filename):
 
     return data_nm, data_time, data_z
 
+# load real TA data
+def load_data_csv(data_filename):
+    """load matrix data"""
+    data = np.genfromtxt(data_filename, delimiter=',', skip_footer = 20)
+    data_nm = data[1:,0]    #wavelength in nm
+    data_time = data[0,1:]
+    data_z = data[1:, 1:]
+
+    return data_nm, data_time, data_z
+
 
 def earth_smoothing(nm_array, y_array):
     """
