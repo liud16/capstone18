@@ -28,7 +28,7 @@ def cluster_classifier(index_df, corrected_output):
         peak = cluster.predict([corrected_output.values[j,:-1]])
         signal = corrected_output.loc[j][1]
         for k in range(found_peak):
-            if (peak == k and (signal >= 0.001 or signal <= -0.001)):
+            if (peak == k and (abs(signal >= 0.00))):
                 peak_dict['peak_%s' % k].append(corrected_output.values[j])
 
     return peak_dict
