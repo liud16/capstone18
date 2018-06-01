@@ -24,7 +24,7 @@ def cluster_classifier(index_df, corrected_output):
     for i in range(found_peak):
             peak_dict['peak_%s' % i] = []
             
-    for j in range(index_df.shape[0]):
+    for j in range(corrected_output.shape[0]):
         peak = cluster.predict([corrected_output.values[j,:-1]])
         signal = corrected_output.loc[j][1]
         for k in range(found_peak):
