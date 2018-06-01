@@ -53,9 +53,9 @@ def peak_matrix(nm_array,data_matrix, threshold, mindist):
     num_timeslice = np.shape(data_matrix)[1]
     
     for i in range(num_timeslice):
-        data_timeslice = data_matrix[:, i]
+        data_timeslice = data_matrix.values[:, i]
         
-        peak_idx = findpeak(data_timeslice, threshold, mindist).tolist()
+        peak_idx = findpeak.indexes(data_timeslice, threshold, mindist).tolist()
         peak_idx_matx.append(peak_idx)
         
         
