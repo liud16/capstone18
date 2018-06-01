@@ -3,27 +3,35 @@ from matplotlib import pyplot as plt
 from pyearth import Earth
 import pandas as pd
 
-# load some data
+
+def find_nearest(array,value):
+    idx = (np.abs(array-value)).argmin()
+    return idx
+
+
+# load .txt data
 def load_data(data_filename):
     """load matrix data"""
-    raw = np.genfromtxt(data_filename, delimiter='\t')
-    data = np.nan_to_num(raw)
+    data = np.genfromtxt(data_filename, delimiter='\t')
     data_nm = data[1:,0]    #wavelength in nm
     data_time = data[0,1:]
     data_z = data[1:, 1:]
 
     return data_nm, data_time, data_z
 
-# load real TA data
+# load .csv data
 def load_data_csv(data_filename):
     """load matrix data"""
-    raw = np.genfromtxt(data_filename, delimiter=',', skip_footer = 20)
-    data = np.nan_to_num(raw)
-    data_nm = data[1:,0]    #wavelength in nm
-    data_time = data[0,1:]
-    data_z = data[1:, 1:]
+    data = np.genfromtxt(data_filename, delimiter=',', skip_footer = 20)
+    data_nm = np.nan_to_num(data[1:,0])    #wavelength in nm
+    data_time = np.nan_to_num(data[0,1:])
+    data_z = np.nan_to_num(data[1:, 1:])
 
-    return data_nm, data_time, data_z
+    data_nm_use = data_nm[find_nearest(data_nm, 900):find_nearest(data_nm, 1400)]
+    data_z_use = data_z[find_nearest(data_nm, 900):find_nearest(data_nm, 1400), :]
+    
+
+    return data_nm_use, data_time, data_z_use
 
 
 def earth_smoothing(nm_array, y_array):
