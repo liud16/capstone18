@@ -20,16 +20,15 @@ def cluster_classifier(index_df, corrected_output):
     found_peak = index_df.shape[1]
     cluster = KMeans(n_clusters=found_peak).fit(corrected_output.iloc[:,:-1])
     peak_dict = {}
-
-    for i in range(index_df.shape[0]):
-        peak = cluster.predict([corrected_output.iloc[i,:-1]])
-        signal = corrected_output.iloc[i][1]
-        for j in range(found_peak):
-            peak_dict['peak_%s' % j] = []
+    
+    for i in range(found_peak):
+            peak_dict['peak_%s' % i] = []
             
-            if ( peak == j and (signal >= 0.001 or signal <= -0.001)):
-            peak_dict['peak_%s' % j].append(corrected_output.iloc[i])
+    for j in range(index_df.shape[0]):
+        peak = cluster.predict([corrected_output.values[j,:-1]])
+        signal = corrected_output.loc[j][1]
+        for k in range(found_peak):
+            if (peak == k and (signal >= 0.001 or signal <= -0.001)):
+                peak_dict['peak_%s' % k].append(corrected_output.values[j])
 
-            else:
-                pass
     return peak_dict
