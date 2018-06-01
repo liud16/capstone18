@@ -1,8 +1,7 @@
-# importing the libraries
+ # importing the libraries
 import numpy as np
 from scipy.optimize import curve_fit
 from scipy import interpolate
-from astropy.modeling import models, fitting
 import pandas as pd
 
 # load some data
@@ -88,4 +87,4 @@ def earth_smooth_matrix(nm_array,data_matrix,noise_coefficient):
     noise_matx = noise_matx.drop(columns='a')
     smooth_matx = smooth_matx.drop(columns='a')
 
-return noise_matx, smooth_matx
+    return noise_matx, smooth_matx
