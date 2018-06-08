@@ -16,27 +16,20 @@ import pandas as pd
 
 
 def indexes(y, thres=0.3, min_dist=1):
-    """Peak detection routine.
+    """
+    Peak detection based on a gradient-method, 
+    adapted from peakutils.indexes
 
-    Finds the numeric index of the peaks in *y* by taking its first order difference. By using
-    *thres* and *min_dist* parameters, it is possible to reduce the number of
-    detected peaks. *y* must be signed.
 
-    Parameters
-    ----------
-    y : ndarray (signed)
-        1D amplitude data to search for peaks.
-    thres : float between [0., 1.]
-        Normalized threshold. Only the peaks with amplitude higher than the
-        threshold will be detected.
-    min_dist : int
-        Minimum distance between each detected peak. The peak with the highest
-        amplitude is preferred to satisfy this constraint.
+    Args:
+    y : 1D data array, numpy array    
+    thres : lowest intensity to call a feature a peak, 
+    float between 0. and 1.
+    min_dist : minimum distance between two peaks, int
+    
+    Returns:
+    array of peak indices, numpy array        
 
-    Returns
-    -------
-    ndarray
-        Array containing the numeric indexes of the peaks that were detected
     """
     y_raw = y
     y = [abs(k) for k in y_raw]
