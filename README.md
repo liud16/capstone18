@@ -30,24 +30,16 @@ This function searches for peaks based on convoluted value compared to neighbori
 ```python
 def earth_Smoothing(nm_array, y_array,noise_coefficient):        
     """
-    ============================================
-     Smoothen noisy data using py-earth,
-     based on multivariate adaptive regression spline
-    ============================================
-
-    Notes
-    -----   
-    generates a de-noised curve from the TA data
-
-    Parameters
-    ----------
+    Smoothen noisy data using py-earth,
+    based on multivariate adaptive regression spline
+    
+    Args:
         nm_array: wavelength array
-        y_array: intensity array
-        noise_coefficient: the scale of noise
-
-    Returns
-    -------
-        a smoothened curve from the original noisy curve   
+        y-array: intensity array
+        
+    Returns:
+        a smoothing curve from the original noise curve
+    
     """
     from pyearth import Earth
    # Fit an Earth model
@@ -152,6 +144,20 @@ peak_idx_matx, peak_height_matx, peak_fwhm_matx = peak_matrix(nm,z,num_timeslice
 Applying this function to the output (peak indices) from peakutils.peak.indexes removes outliers and sudden fluctuation in peak position
 ```python
 def id_outliers_replacewith_interp(x_array, data, m, win_len):
+    """
+    identify outliers in an array of peak positions
+    
+    Args:
+        x_array: time array, numpy array
+        data: 1D wavelength or index array, numpy array
+        m: scale of standard deviation used to identify outlier,
+            float between 0. and 1.
+        win_len: window size to search for outlier
+    
+    Returns:
+        new_data_final_interp: a new data array that's absent of outliers
+        
+    """
     reshape_x_array = []
     reshape_data = []
     quotient_array = np.empty(len(data))
@@ -222,6 +228,17 @@ def id_outliers_replacewith_interp(x_array, data, m, win_len):
 
 
 def isotonic(x, y):
+    """
+    predict y-array based on isotonic regression model
+    
+    Args:
+        x: time array, numpy array
+        y: peak position or nm, numpy array
+    
+    Returns:
+        y_: the isotonic transform based on the given time array and peak array
+    
+    """
     ir = IsotonicRegression()
     y_ = ir.fit_transform(x, y)
     
