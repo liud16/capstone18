@@ -20,15 +20,15 @@ def load_data(data_filename):
     return data_nm, data_time, data_z
 
 # load .csv data
-def load_data_csv(data_filename):
+def load_data_csv(data_filename, startnm, endnm):
     """load matrix data"""
     data = np.genfromtxt(data_filename, delimiter=',', skip_footer = 20)
     data_nm = np.nan_to_num(data[1:,0])    #wavelength in nm
     data_time = np.nan_to_num(data[0,1:])
     data_z = np.nan_to_num(data[1:, 1:])
 
-    data_nm_use = data_nm[find_nearest(data_nm, 900):find_nearest(data_nm, 1400)]
-    data_z_use = data_z[find_nearest(data_nm, 900):find_nearest(data_nm, 1400), :]
+    data_nm_use = data_nm[find_nearest(data_nm, startnm):find_nearest(data_nm, endnm)]
+    data_z_use = data_z[find_nearest(data_nm, startnm):find_nearest(data_nm, endnm), :]
     
 
     return data_nm_use, data_time, data_z_use
