@@ -22,7 +22,7 @@ def find_nearest(array,value):
 
 
 # load .txt data
-def load_data(data_filename):
+def load_data(data_filename, startnm, endnm):
     """
     load matrix data
     
