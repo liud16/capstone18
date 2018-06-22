@@ -2,6 +2,5 @@ matplotlib
 numpy
 pandas
 peakutils
-pyearth
 scipy
 sklearn
