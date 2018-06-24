@@ -4,11 +4,16 @@ import numpy as np
 from numpy.polynomial.polynomial import polyfit
 
 def visualize(peak_dict, data_nm):
+        nm = pd.DataFrame(data_nm)
     for i in range(len(peak_dict)):
+        nm_list = []
         df = pd.DataFrame(peak_dict['peak_%s' % i], 
         columns=['Position', 'Height', 'Width', 'Time'])
         df = df.drop_duplicates(subset= 'Time')
         df = df.reset_index(drop=True)
+        for j in df['Position']:
+            nm_list.append(nm.loc[j].values)    
+        df['Wavelength'] = nm_list
         height_norm = np.linalg.norm(df['Height'], keepdims=True)
         fit_params, exp_fit, data, time = fit_single_exp_diffev(df['Time'], df['Height'])
         
