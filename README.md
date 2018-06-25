@@ -142,6 +142,9 @@ peak_idx_matx, peak_height_matx, peak_fwhm_matx = peak_matrix(nm,z,num_timeslice
 
 ## remove outliers in peak position
 Applying this function to the output (peak indices) from peakutils.peak.indexes removes outliers and sudden fluctuation in peak position
+
+<img width="493" alt="image" src="https://user-images.githubusercontent.com/35111515/41867681-a5525970-7868-11e8-9402-4bbaaa02a0ab.png">
+
 ```python
 def id_outliers_replacewith_interp(x_array, data, m, win_len):
     """
