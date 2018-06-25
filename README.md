@@ -113,7 +113,8 @@ def astropy_smoothing(nm_array, timedelay, noise_coefficient,gg_init):
 ## peakutils.peak.indexes
 This algorithm can be used as an equivalent of the MatLab `findpeaks` and will give easily give consistent results if you only need minimal distance and height filtering.
 
-![](https://raw.github.com/Tutu1995/getbest/images/Peakutils.png)
+<img width="457" alt="image" src="https://user-images.githubusercontent.com/35111515/41868068-d4f4b262-7869-11e8-8a6a-6564e94f95e0.png">
+
 ```python
 filename = '20180418_twogaussian_spectralshfit.txt'
 nm, time, z = loaddata(filename)
