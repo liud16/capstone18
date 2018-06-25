@@ -25,7 +25,8 @@ When you're selecting an algorithm, you might consider:
 ## pyearth.peak.smoothing
 This function searches for peaks based on convoluted value compared to neighboring points and returns those peaks whose properties match optionally specified conditions (minimum and/or maximum) for their height, width, indices, threshold and distance to each other.
 
-![](http://localhost:8888/view/getbest/images/astropy.png)
+<img width="498" alt="image" src="https://user-images.githubusercontent.com/35111515/41867976-827f06e0-7869-11e8-9735-a158b403ab98.png">
+
 
 ```python
 def earth_Smoothing(nm_array, y_array,noise_coefficient):        
