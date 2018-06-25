@@ -27,6 +27,9 @@ This function searches for peaks based on convoluted value compared to neighbori
 
 <img width="498" alt="image" src="https://user-images.githubusercontent.com/35111515/41867976-827f06e0-7869-11e8-9735-a158b403ab98.png">
 
+<img width="483" alt="image" src="https://user-images.githubusercontent.com/35111515/41868666-a254bd50-786b-11e8-99ba-99eec47f9556.png">
+
+
 
 ```python
 def earth_Smoothing(nm_array, y_array,noise_coefficient):        
