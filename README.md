@@ -147,6 +147,9 @@ Applying this function to the output (peak indices) from peakutils.peak.indexes 
 
 <img width="493" alt="image" src="https://user-images.githubusercontent.com/35111515/41867681-a5525970-7868-11e8-9402-4bbaaa02a0ab.png">
 
+<img width="476" alt="image" src="https://user-images.githubusercontent.com/35111515/41868197-340e5ce4-786a-11e8-9e12-4b9d96b16305.png">
+
+
 ```python
 def id_outliers_replacewith_interp(x_array, data, m, win_len):
     """
