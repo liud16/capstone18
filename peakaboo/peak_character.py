@@ -6,7 +6,7 @@ def find_nearest(array,value):
     idx = (np.abs(array-value)).argmin()
     return idx
 
- # get peak height and fwhm info
+
 def peakchar(data_nm, data_z_array, peak_index):
     """
     find the peak height and width
@@ -47,7 +47,6 @@ def peakchar(data_nm, data_z_array, peak_index):
         #find the index and nm corresponding to half of the peak intensity
         #on the right side of the peak   
         fwhm_idx_2[i] = find_nearest(data_z_array[peak_index[i]:], half_height[i]) + peak_index[i]
-
         fwhm_nm_2[i] = data_nm[int(fwhm_idx_2[i])]
     
     #calculate fwhm as the difference between the index/nm's on the left and
@@ -55,6 +54,28 @@ def peakchar(data_nm, data_z_array, peak_index):
     fwhm = fwhm_nm_2 - fwhm_nm_1
 
     return height, fwhm
+
+
+def convert_to_nm(nm, matrix):
+    """convert index to nm
+    
+    Args:
+        nm: wavelength array
+        matrix: index matrix
+    
+    Returns:
+        nm_matrix: matrix in nm
+    """
+    
+    nm_matrix = np.empty_like(matrix)
+    matrix_nonan = np.nan_to_num(matrix)
+    print (np.shape(matrix_nonan))    
+    for i in range(np.shape(matrix_nonan)[1]):
+        nm_array = nm_matrix[:, i]
+        for j in range(np.shape(matrix_nonan)[0]):
+            nm_array[j] = nm[int(matrix_nonan[j, i])]
+    
+    return nm_matrix
 
 
 def peak_matrix(nm_array,data_matrix, threshold, mindist):
@@ -87,15 +108,18 @@ def peak_matrix(nm_array,data_matrix, threshold, mindist):
         peak_idx = findpeak.indexes(data_timeslice, threshold, mindist).tolist()
         peak_idx_matx.append(peak_idx)
         
-        
         peak_height, peak_fwhm = peakchar(nm_array, data_timeslice, peak_idx)
         
         peak_height_matx.append(peak_height)
         peak_fwhm_matx.append(peak_fwhm)
         
+        #convert index to nm
+        peak_idx_nm = peak_idx_matx       
+        peak_fwhm_nm = peak_fwhm_matx
+        
         # transfer to dataframe
-        peak_idx_df=pd.DataFrame(peak_idx_matx)
+        peak_idx_df=pd.DataFrame(peak_idx_nm)
         peak_height_df=pd.DataFrame(peak_height_matx)
-        peak_fwhm_df=pd.DataFrame(peak_fwhm_matx)
+        peak_fwhm_df=pd.DataFrame(peak_fwhm_nm)
         
     return peak_idx_df, peak_height_df, peak_fwhm_df

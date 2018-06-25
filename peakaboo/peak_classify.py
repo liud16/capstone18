@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from sklearn.cluster import KMeans
 
-def data_grouping(index_df, height_df, fwhm_df):
+def data_grouping(index_df, height_df, fwhm_df, threshold):
     peak_list = []
     
     for i in range(index_df.shape[0]):
@@ -13,7 +13,7 @@ def data_grouping(index_df, height_df, fwhm_df):
     all_points = pd.DataFrame(peak_list, 
     columns=['Position', 'Height', 'Width', 'Time'])
     fill_na = all_points.fillna(value=0)
-    corrected_output = fill_na.drop(fill_na[abs(fill_na.Height) < 0.001].index)
+    corrected_output = fill_na.drop(fill_na[abs(fill_na.Height) < threshold].index)
     corrected_output = corrected_output.reset_index(drop=True)
     
     return corrected_output
