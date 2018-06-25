@@ -120,6 +120,9 @@ This algorithm can be used as an equivalent of the MatLab `findpeaks` and will g
 
 <img width="437" alt="image" src="https://user-images.githubusercontent.com/35111515/41868834-15123c8c-786c-11e8-8619-c0856fb37e6a.png">
 
+<img width="438" alt="image" src="https://user-images.githubusercontent.com/35111515/41868933-5040f730-786c-11e8-9de1-4842170bdce1.png">
+
+
 
 ```python
 filename = '20180418_twogaussian_spectralshfit.txt'
