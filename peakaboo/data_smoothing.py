@@ -39,11 +39,18 @@ def load_data(data_filename, startnm, endnm, starttime):
     data_nm = data[1:,0]
     data_time = data[0,1:]
     data_z = data[1:, 1:]
-
-    data_nm_use = data_nm[find_nearest(data_nm, startnm):find_nearest(data_nm, endnm)]
+    
+    #trim wavelength array based on starting and ending wavlenth
+    data_nm_use = data_nm\
+    [find_nearest(data_nm, startnm):find_nearest(data_nm, endnm)]
+    
+    #trim time array based on starting time
     data_time_use = data_time[find_nearest(data_time, starttime):]
 
-    data_z_use = data_z[find_nearest(data_nm, startnm):find_nearest(data_nm, endnm), find_nearest(data_time, starttime):]
+    #trim data matrix accordingly
+    data_z_use = data_z[find_nearest(data_nm, startnm):\
+                        find_nearest(data_nm, endnm), \
+                        find_nearest(data_time, starttime):]
 
     return data_nm_use, data_time_use, data_z_use
 
@@ -55,10 +62,18 @@ def load_data_csv(data_filename, startnm, endnm, starttime):
     data_nm = np.nan_to_num(data[1:,0])    #wavelength in nm
     data_time = np.nan_to_num(data[0,1:])
     data_z = np.nan_to_num(data[1:, 1:])
-
-    data_nm_use = data_nm[find_nearest(data_nm, startnm):find_nearest(data_nm, endnm)]
+    
+    #trim wavelength array based on starting and ending wavlenth
+    data_nm_use = data_nm[find_nearest(data_nm, startnm):\
+                          find_nearest(data_nm, endnm)]
+    
+    #trim time array based on starting time
     data_time_use = data_time[find_nearest(data_time, starttime):]
-    data_z_use = data_z[find_nearest(data_nm, startnm):find_nearest(data_nm, endnm), find_nearest(data_time, starttime):]
+    
+    #trim data matrix accordingly
+    data_z_use = data_z[find_nearest(data_nm, startnm):\
+                        find_nearest(data_nm, endnm), \
+                        find_nearest(data_time, starttime):]
     
 
     return data_nm_use, data_time_use, data_z_use
@@ -81,10 +96,6 @@ def earth_smoothing(nm_array, y_array):
     model = Earth(smooth=True)
     np.random.seed(42)
     model.fit(nm_array, y_array)
-
-   # Print the model
-    #print(model.trace())
-    #print(model.summary())
 
    # Get the predicted values and derivatives
     y_hat = model.predict(nm_array)
