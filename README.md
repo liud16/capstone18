@@ -150,7 +150,8 @@ Applying this function to the output (peak indices) from peakutils.peak.indexes 
 
 <img width="476" alt="image" src="https://user-images.githubusercontent.com/35111515/41868197-340e5ce4-786a-11e8-9e12-4b9d96b16305.png">
 
-<img width="403" alt="image" src="https://user-images.githubusercontent.com/35111515/41868348-af4ed000-786a-11e8-9a39-256bdac3490c.png">
+<img width="448" alt="image" src="https://user-images.githubusercontent.com/35111515/41868404-def1b480-786a-11e8-92f1-c0789c9b948d.png">
+
 
 
 ```python
