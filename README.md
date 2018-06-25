@@ -65,7 +65,8 @@ def earth_Smoothing(nm_array, y_array,noise_coefficient):
 ## astropy.peak.smoothing
 This function smoothens the original noisy data while not losing the information. Compared to other smoothening algorithms, *astropy* can best preserve the shape of the curve and effectively reduces the noise. However, the algorithm requires a rough initial guess of the peak info of the data.
 
-![](http://localhost:8888/view/getbest/images/astropy.png)
+<img width="476" alt="image" src="https://user-images.githubusercontent.com/35111515/41868275-7584ffe8-786a-11e8-97dc-4e615a9e0493.png">
+
 
 ```python
 def astropy_smoothing(nm_array, timedelay, noise_coefficient,gg_init):
