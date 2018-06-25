@@ -41,7 +41,7 @@ def load_data(data_filename, startnm, endnm, starttime):
     data_z = data[1:, 1:]
 
     data_nm_use = data_nm[find_nearest(data_nm, startnm):find_nearest(data_nm, endnm)]
-    data_time_use = data_nm[find_nearest(data_time, starttime):]
+    data_time_use = data_time[find_nearest(data_time, starttime):]
 
     data_z_use = data_z[find_nearest(data_nm, startnm):find_nearest(data_nm, endnm), find_nearest(data_time, starttime):]
 
@@ -57,7 +57,7 @@ def load_data_csv(data_filename, startnm, endnm, starttime):
     data_z = np.nan_to_num(data[1:, 1:])
 
     data_nm_use = data_nm[find_nearest(data_nm, startnm):find_nearest(data_nm, endnm)]
-    data_time_use = data_nm[find_nearest(data_time, starttime):]
+    data_time_use = data_time[find_nearest(data_time, starttime):]
     data_z_use = data_z[find_nearest(data_nm, startnm):find_nearest(data_nm, endnm), find_nearest(data_time, starttime):]
     
 
