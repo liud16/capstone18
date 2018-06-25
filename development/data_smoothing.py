@@ -22,7 +22,7 @@ def find_nearest(array,value):
 
 
 # load .txt data
-def load_data(data_filename, startnm, endnm):
+def load_data(data_filename, startnm, endnm, starttime):
     """
     load matrix data
     
@@ -41,13 +41,15 @@ def load_data(data_filename, startnm, endnm):
     data_z = data[1:, 1:]
 
     data_nm_use = data_nm[find_nearest(data_nm, startnm):find_nearest(data_nm, endnm)]
-    data_z_use = data_z[find_nearest(data_nm, startnm):find_nearest(data_nm, endnm), :]
+    data_time_use = data_nm[find_nearest(data_time, starttime):]
 
-    return data_nm_use, data_time, data_z_use
+    data_z_use = data_z[find_nearest(data_nm, startnm):find_nearest(data_nm, endnm), find_nearest(data_time, starttime):]
+
+    return data_nm_use, data_time_use, data_z_use
 
 
 # load .csv data
-def load_data_csv(data_filename, startnm, endnm):
+def load_data_csv(data_filename, startnm, endnm, starttime):
     """load matrix data"""
     data = np.genfromtxt(data_filename, delimiter=',', skip_footer = 20)
     data_nm = np.nan_to_num(data[1:,0])    #wavelength in nm
@@ -55,10 +57,11 @@ def load_data_csv(data_filename, startnm, endnm):
     data_z = np.nan_to_num(data[1:, 1:])
 
     data_nm_use = data_nm[find_nearest(data_nm, startnm):find_nearest(data_nm, endnm)]
-    data_z_use = data_z[find_nearest(data_nm, startnm):find_nearest(data_nm, endnm), :]
+    data_time_use = data_nm[find_nearest(data_time, starttime):]
+    data_z_use = data_z[find_nearest(data_nm, startnm):find_nearest(data_nm, endnm), find_nearest(data_time, starttime):]
     
 
-    return data_nm_use, data_time, data_z_use
+    return data_nm_use, data_time_use, data_z_use
 
 
 def earth_smoothing(nm_array, y_array):

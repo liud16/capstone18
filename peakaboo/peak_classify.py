@@ -12,23 +12,25 @@ def data_grouping(index_df, height_df, fwhm_df):
         
     all_points = pd.DataFrame(peak_list, 
     columns=['Position', 'Height', 'Width', 'Time'])
-    corrected_output = all_points.fillna(value=0)
+    fill_na = all_points.fillna(value=0)
+    corrected_output = fill_na.drop(fill_na[abs(fill_na.Height) < 0.001].index)
+    corrected_output = corrected_output.reset_index(drop=True)
     
     return corrected_output
 
 def cluster_classifier(index_df, corrected_output):
     found_peak = index_df.shape[1]
-    cluster = KMeans(n_clusters=found_peak).fit(corrected_output.iloc[:,:-1])
-    peak_dict = {}
+    cluster = KMeans(n_clusters=found_peak).fit(corrected_output.iloc[:,:-2])
+    cluster_dict = {}
     
     for i in range(found_peak):
-            peak_dict['peak_%s' % i] = []
+            cluster_dict['peak_%s' % i] = []
             
     for j in range(corrected_output.shape[0]):
-        peak = cluster.predict([corrected_output.values[j,:-1]])
-        signal = corrected_output.loc[j][1]
+        peak = cluster.predict([corrected_output.values[j,:-2]])
         for k in range(found_peak):
-            if (peak == k and (abs(signal >= 0.00))):
-                peak_dict['peak_%s' % k].append(corrected_output.values[j])
+            if (peak == k):
+                cluster_dict['peak_%s' % k].append(corrected_output.values[j])
 
+    peak_dict = { k:v for k, v in cluster_dict.items() if len(v) >= 20}
     return peak_dict
