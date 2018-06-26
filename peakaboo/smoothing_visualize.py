@@ -51,23 +51,23 @@ def smoothing(nm, time, z):
     assert np.shape(z_smooth) == np.shape(z), \
     'Unexpected change in matrix shape after smoothening'
 
+
     #contour plot of original data BEFORE smoothing
     original_contour = twodcontourplot(nm, time, z)
     nm_contour, time_contour, min_contour, max_contour = original_contour[0], original_contour[1], original_contour[2], original_contour[3]
-
-    fig, (ax1, ax2) = plt.subplots(1, 2)
-    ax1.set_title('Raw data', fontsize = 16, fontweight = 'bold')
-    ax1.set_xlabel('Wavelength (nm)', fontsize = 16, fontweight = 'bold')
-    ax1.set_ylabel('Time delay (ps)', fontsize = 16, fontweight = 'bold')
+    
+    fig, (ax1, ax2) = plt.subplots(1, 2, dpi = 300)
+    ax1.set_title('Raw data', fontsize = 20, fontweight = 'bold')
+    ax1.set_xlabel('Wavelength (nm)', fontsize = 20, fontweight = 'bold')
+    ax1.set_ylabel('Time delay (ps)', fontsize = 20, fontweight = 'bold')
+    plt.xlabel('Wavelength (nm)', fontsize = 20, fontweight = 'bold')
     ax1.pcolormesh(nm_contour, time_contour, z, cmap = 'PiYG', vmin=min_contour/2.5, vmax=max_contour/10)
-
+    
     #contour plot of data AFTER smoothing
     smooth_contour = twodcontourplot(nm, time, z_smooth)    
     nm_contour, time_contour, min_contour, max_contour = smooth_contour[0], smooth_contour[1], smooth_contour[2], smooth_contour[3]
-    
-    ax2.set_title('Smooth data', fontsize = 16, fontweight = 'bold')
-    ax2.set_xlabel('Wavelength (nm)', fontsize = 16, fontweight = 'bold')
-    ax2.set_ylabel('Time delay (ps)', fontsize = 16, fontweight = 'bold')
+        
+    ax2.set_title('Smooth data', fontsize = 20, fontweight = 'bold')
     ax2.pcolormesh(nm_contour, time_contour, z_smooth, cmap = 'PiYG', vmin=min_contour/2.5, vmax=max_contour/10)
     plt.tight_layout(pad=0.25, h_pad=None, w_pad=None, rect=None)
     plt.show()
