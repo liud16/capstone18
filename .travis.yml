@@ -11,6 +11,7 @@ branches:
        - master
 
 before_install:
+    - apt-get install numpy
     - apt-get install py-earth
 
 install:
