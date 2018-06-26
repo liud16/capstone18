@@ -45,7 +45,17 @@ def findpeaks(nm, time, z):
             print (height)
             print ('Peak fwhm in wavelength (nm)')
             print (fwhm)
-            peaks_ok = input('Are you satisfied with peak-finding? Y/N ')            
+            peaks_ok = input('Are you satisfied with peak-finding? Y/N ')
+            
+            #make sure only Y or N is entered
+            if peaks_ok != 'Y' or 'N':
+                print ('Please enter Y or N only for "Are you satisfied with peak-finding?"')
+                peaks_ok = input('Are you satisfied with peak-finding? Y/N ')
+
+            elif peaks_ok == 'Y' or 'N':
+                peaks_ok = peaks_ok
+            #check previous if's are guarding agains wrong input
+            assert peaks_ok == 'Y' or 'N', ('Enter only Y or N')  
         
         elif default_parameter == 'N':
             #Ask user for threshold and minimum distance between two peaks
@@ -64,13 +74,25 @@ def findpeaks(nm, time, z):
             print (height)
             print ('Peak fwhm in wavelength (nm)')
             print (fwhm)
-            peaks_ok = input('Are you satisfied with peak-finding? Y/N ')            
-            
-        else:
-            print ('Please enter Y or N only for "Default parameters?".')
+            peaks_ok = input('Are you satisfied with peak-finding? Y/N ')
+
+            #make sure only Y or N is entered            
+            if peaks_ok != 'Y' or 'N':
+                print ('Please enter Y or N only for "Are you satisfied with peak-finding?"')
+                peaks_ok = input('Are you satisfied with peak-finding? Y/N ')
+
+            elif peaks_ok == 'Y' or 'N':
+                peaks_ok = peaks_ok
+            #check previous if's are guarding agains wrong input
+            assert peaks_ok == 'Y' or 'N', ('Enter only Y or N')            
+        
+        # Make sure only 'Y' or 'N' is acceptable
+        elif default_parameter != 'Y' or 'N':
+            print ('Please enter Y or N only for "Default parameters?"')
             peaks_ok = 'N'
+        #check previous if's are guarding agains wrong input
+        assert default_parameter == 'Y' or 'N', 'Wrong input'
         
-        
-        return idx, height, fwhm
+    return idx, height, fwhm
         
         
