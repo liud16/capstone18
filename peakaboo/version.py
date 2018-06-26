@@ -1,12 +1,11 @@
-from __future__ import absolute_import, division, print_function
 from os.path import join as pjoin
 
 # Format expected by setup.py and doc/source/conf.py: string of form "X.Y.Z"
-_version_major = 0
-_version_minor = 1
+_version_major = 1
+_version_minor = 4
 _version_micro = ''  # use '' for first of series, number for 1 and above
 _version_extra = 'dev'
-# _version_extra = ''  # Uncomment this for full releases
+
 
 # Construct full version string from these.
 _ver = [_version_major, _version_minor]
@@ -25,11 +24,12 @@ CLASSIFIERS = ["Development Status :: 3 - Alpha",
                "Programming Language :: Python",
                "Topic :: Scientific/Engineering"]
 
-# Description should be a one-liner:
+
 description = "Peakaboo: Feature Analysis in Transient Absorption Spectroscopy"
-# Long description will go up on the pypi page
+
 long_description = """
-Shablona
+
+PEAKABOO
 ========
 We have designed an open-source package to identify self-consistent spectrally 
 and temporally evolving signatures of charge carriers after photoexcitation in  
@@ -39,8 +39,8 @@ by combining methods such as multivariate adaptive regression spline fitting and
 data clustering.
 
 To get started using these components in your own software, please go to the
-repository README_.
-.. _README: https://github.com/liud16/peakaboo/README.md
+repository README: https://github.com/liud16/peakaboo/README.md
+
 License
 =======
 ``PEAKABOO`` is licensed under the terms of the MIT license. See the file
@@ -64,4 +64,4 @@ MINOR = _version_minor
 MICRO = _version_micro
 VERSION = __version__
 PACKAGE_DATA = {'PEAKABOO': [pjoin('data', '*')]}
-REQUIRES = ["numpy","scipy","scikitlearn","pandas","matplotlib"]
+REQUIRES = ["numpy","scipy","peakutils","sklearn","pyearth","pandas","matplotlib"]
