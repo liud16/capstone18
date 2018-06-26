@@ -1,6 +1,10 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 
+def save_df(df,filename):
+    df.to_csv(filename, sep = ',', columns=['Position', 'Height', 'Width', 'Time']) 
+    return
+
 def visualize(peak_dict, data_nm):
     """visualize peak intensity, height and fwhm dynamics
     
@@ -19,8 +23,9 @@ def visualize(peak_dict, data_nm):
         df = df.drop_duplicates(subset= 'Time')
         df = df.reset_index(drop=True)
         for j in df['Position']:
-            nm_list.append(nm.loc[j].values)  
+            nm_list.append(nm.loc[j].values)
         
+        df['Position'] = nm_list
         #plot peak position, intensity and width over time
         fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(12, 8))
         
@@ -31,7 +36,6 @@ def visualize(peak_dict, data_nm):
         
         ax2.plot(df['Time'], df['Position'], '.')
         ax2.set_ylabel('Position', fontsize=18, fontweight='bold')
-        ax2.set_ylim((0, data_nm.shape[0]))
         ax2.grid()
         
         ax3.plot(df['Time'], df['Width'], '.')
@@ -40,5 +44,8 @@ def visualize(peak_dict, data_nm):
         ax3.grid()
         
         plt.show()
+        
+        filename = 'peak_%s' % i + '.csv'
+        save_df(df, filename)
         
     return
