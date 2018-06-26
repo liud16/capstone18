@@ -47,6 +47,10 @@ def smoothing(nm, time, z):
     #smoothing data
     z_smooth = earth_smooth_matrix(nm, z)
     
+    #check data shape doesn't change
+    assert np.shape(z_smooth) == np.shape(z), \
+    'Unexpected change in matrix shape after smoothening'
+
     #contour plot of original data BEFORE smoothing
     original_contour = twodcontourplot(nm, time, z)
     nm_contour, time_contour, min_contour, max_contour = original_contour[0], original_contour[1], original_contour[2], original_contour[3]
