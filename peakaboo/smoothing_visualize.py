@@ -59,7 +59,7 @@ def smoothing(nm, time, z):
     ax1.set_title('Raw data', fontsize = 16, fontweight = 'bold')
     ax1.set_xlabel('Wavelength (nm)', fontsize = 16, fontweight = 'bold')
     ax1.set_ylabel('Time delay (ps)', fontsize = 16, fontweight = 'bold')
-    ax1.pcolormesh(nm_contour, time_contour, z, cmap = 'PiYG', vmin=min_contour, vmax=max_contour)
+    ax1.pcolormesh(nm_contour, time_contour, z, cmap = 'PiYG', vmin=min_contour/2.5, vmax=max_contour/10)
 
     #contour plot of data AFTER smoothing
     smooth_contour = twodcontourplot(nm, time, z_smooth)    
@@ -68,7 +68,7 @@ def smoothing(nm, time, z):
     ax2.set_title('Smooth data', fontsize = 16, fontweight = 'bold')
     ax2.set_xlabel('Wavelength (nm)', fontsize = 16, fontweight = 'bold')
     ax2.set_ylabel('Time delay (ps)', fontsize = 16, fontweight = 'bold')
-    ax2.pcolormesh(nm_contour, time_contour, z_smooth, cmap = 'PiYG', vmin=min_contour, vmax=max_contour)
+    ax2.pcolormesh(nm_contour, time_contour, z_smooth, cmap = 'PiYG', vmin=min_contour/2.5, vmax=max_contour/10)
     plt.tight_layout(pad=0.25, h_pad=None, w_pad=None, rect=None)
     plt.show()
 
