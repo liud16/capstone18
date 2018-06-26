@@ -57,6 +57,7 @@ if __name__ == '__main__':
     print ('Next step is to find peaks in each time-slice.')
     idx, height, fwhm = findpeaks(nm, time, z_smooth)
 
+    print ('Peak dynamics are shown below. .csv files are saved.')
     #classify peaks    
     peak_dict = classify(nm, idx, height, fwhm)
 
