@@ -23,7 +23,7 @@ def visualize(peak_dict, data_nm):
         df = df.drop_duplicates(subset= 'Time')
         df = df.reset_index(drop=True)
         for j in df['Position']:
-            nm_list.append(nm.loc[j].values)
+            nm_list.append(nm.loc[j].values[0])
         
         df['Position'] = nm_list
         #plot peak position, intensity and width over time
