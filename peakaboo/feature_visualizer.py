@@ -2,11 +2,28 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 def save_df(df,filename):
+    """save peak info to .csv file
+    
+    Args:
+        df: panda dataframe
+        filename: string
+    
+    """
+    
+    assert type(filename) == str, 'Filename needs to be str'
+    assert type(df) == pd.core.frame.DataFrame, \
+    'Filetype needs to be pandas DataFrame'
+    
+    #save dataframs as csv
     df.to_csv(filename, sep = ',', columns=['Position', 'Height', 'Width', 'Time']) 
+    
     return
+
+
 
 def visualize(peak_dict, data_nm):
     """visualize peak intensity, height and fwhm dynamics
+    save peak info into .csv file
     
     Args:
         peak_dict: dictionary of peak index, height and fwhm
