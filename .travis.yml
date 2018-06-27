@@ -9,10 +9,6 @@ branches:
     only:
        - master
 
-before_install:
-    - sudo apt install python3-numpy
-    - sudo apt-get install py-earth
-
 install:
     - pip install coverage
     - pip install coveralls
