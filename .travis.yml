@@ -11,10 +11,18 @@ branches:
        - master
 
 before_install:
-    - apt-get install numpy
+    - wget http://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh -O miniconda.sh
+    - chmod +x miniconda.sh
+    - ./miniconda.sh -b
+    - export PATH=/home/travis/miniconda2/bin:$PATH
+    - conda update --yes conda
     - apt-get install py-earth
+    - sudo rm -rf /dev/shm
+    - sudo ln -s /run/shm /dev/shm
 
 install:
+    - conda install --yes cython numpy scipy matplotlib nose dateutil pandas patsy statsmodels scikit-learn sympy
+    - python setup.py build_ext --inplace --cythonize
     - pip install coverage
     - pip install coveralls
     - pip install flake8
