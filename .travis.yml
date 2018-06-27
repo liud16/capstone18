@@ -18,7 +18,6 @@ before_install:
     - conda update --yes conda
     - sudo rm -rf /dev/shm
     - sudo ln -s /run/shm /dev/shm
-    - conda install py-earth
 
 install:
     - conda install --yes cython numpy scipy matplotlib nose dateutil pandas patsy statsmodels scikit-learn sympy
