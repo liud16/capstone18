@@ -6,44 +6,60 @@ This is a temporary script file.
 """
 
 import data_smoothing
-from peak_finding_userinter import findpeaks
+from peak_finding_master import findpeaks
+from peak_classify_master import classify
 import smoothing_visualize
-import peak_classify
-import feature_visualizer
-import numpy as np
-import matplotlib.pyplot as plt
+
 
 if __name__ == '__main__':
     """main function to run functions based on user interaction"""
     
-    print ('--- Peak Detection in Transient Absorption Spectra ---')
+    print ('--- Peakaboo: Peak Detection in Transient Absorption Spectra ---')
     print ('Hello! Welcome to Peakaboo!')
     
-    #asks the file-type
+    #file-type
     print ('Please enter filetype (.csv or .txt)')
     filetype = input('Filetype: ')
+    
+    assert filetype == '.csv' or '.txt', ('Only .csv or .txt is compatible')
 
+    #filename
     print ('Please enter filename (without extension)')
     filename = input('Filename: ')
+
+    assert type(filename) == str, ('Please enter filename in str')
     
+    #wavelength range
     print ('Please choose cut-on wavelength (only number, in nm)')
-    cuton_nm = input('Cut-on wavelength: ')
+    cuton_nm = int(input('Cut-on wavelength: '))
 
     print ('Please choose cut-off wavelength (only number, in nm)')
-    cutoff_nm = input('Cut-off wavelength: ')
-    
-    if filetype == '.txt':
-        nm, time, z = data_smoothing.load_data(filename+'.txt', cuton_nm, cutoff_nm)
+    cutoff_nm = int(input('Cut-off wavelength: '))
 
+    #time range
+    print ('Please enter true time zero (only number, in ps)')
+    timezero = int(input('Time zero at: '))
+
+    #load data    
+    if filetype == '.txt':
+        nm, time, z = data_smoothing.load_data(filename+'.txt', cuton_nm, cutoff_nm, timezero)
+        
     elif filetype == '.csv':
-        nm, time, z = data_smoothing.load_data_csv(filename+'.csv', cuton_nm, cutoff_nm)
+        nm, time, z = data_smoothing.load_data_csv(filename+'.csv', cuton_nm, cutoff_nm, timezero)
     
     #smooth data and visualize
+    print ('--- Reducing noise in data... ---')
+
+    #reduce noise 
     z_smooth = smoothing_visualize.smoothing(nm, time, z)
 
+    #identify and characterize peaks
     print ('Next step is to find peaks in each time-slice.')
     idx, height, fwhm = findpeaks(nm, time, z_smooth)
-    
-    
-    
+
+    print ('Peak dynamics are shown below. .csv files are saved.')
+    #classify peaks    
+    peak_dict = classify(nm, idx, height, fwhm)
+
+    print ('Thanks for using Peakaboo!')    
     
