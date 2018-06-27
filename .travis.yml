@@ -10,8 +10,8 @@ branches:
        - master
 
 before_install:
-    - apt install python3-numpy
-    - apt-get install py-earth
+    - sudo apt install python3-numpy
+    - sudo apt-get install py-earth
 
 install:
     - pip install coverage
