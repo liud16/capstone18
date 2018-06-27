@@ -5,14 +5,14 @@ Peakaboo is a software package for analysis of transient absorption (TA) data. I
 
 
 ## Software Requirements
---------------------------------
+
 - Required softwares are listed in requirements.txt
 - ```pip install -r requirements.txt```
 
 
 
 ## Installation instruction
---------------------------------
+
 - Clone git repository to local:
     
     ```git clone https://github.com/liud16/peakaboo.git ```
@@ -24,7 +24,7 @@ Peakaboo is a software package for analysis of transient absorption (TA) data. I
 
 
 ## Software overflow
---------------------------------
+
 - User provides data in .csv or .txt format and specifies wavelength range and time-zero
 - Reduce noise in data
 - Find peaks in data with user-specific selection criteria
@@ -33,5 +33,5 @@ Peakaboo is a software package for analysis of transient absorption (TA) data. I
 
 
 ## License
---------------------------------
+
 MIT
