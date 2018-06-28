@@ -1,6 +1,7 @@
 # Peakaboo
 
 [![Build Status](https://travis-ci.org/liud16/peakaboo.png?branch=master)](https://travis-ci.org/liud16/peakaboo)
+[![Coverage Status](https://coveralls.io/repos/github/liud16/peakaboo/badge.svg?branch=master)](https://coveralls.io/github/liud16/peakaboo?branch=master)
 
 Peakaboo is a software package for analysis of transient absorption (TA) data. It can identify self-consistent spectrally and temporally evolvin signatures of charge carriers after photoexcitation in TA data. With minimal assumption, our algorithm recovers and visualizes the spectral and kinetics information of the individual population by combining methods such as multivariate adaptive regression spline fitting and data clustering.
 
