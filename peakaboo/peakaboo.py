@@ -5,10 +5,10 @@ Spyder Editor
 This is a temporary script file.
 """
 
-import data_smoothing
-from peak_finding_master import findpeaks
-from peak_classify_master import classify
-import smoothing_visualize
+import peakaboo.data_smoothing
+from peakaboo.peak_finding_master import findpeaks
+from peakaboo.peak_classify_master import classify
+import peakaboo.smoothing_visualize
 
 
 if __name__ == '__main__':

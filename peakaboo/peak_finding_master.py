@@ -6,7 +6,7 @@ Created on Fri Jun 22 08:59:44 2018
 @author: demiliu
 """
 
-from peak_character import peak_matrix
+from peakaboo.peak_character import peak_matrix
 
 def findpeaks(nm, time, z):
     """fine peaks using user input as parameters

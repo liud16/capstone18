@@ -1,5 +1,5 @@
-from peak_classify import data_grouping, cluster_classifier
-from feature_visualizer import visualize
+from peakaboo.peak_classify import data_grouping, cluster_classifier
+from peakaboo.feature_visualizer import visualize
 
 def classify(data_nm, index_df, height_df, fwhm_df):
     classify_ok = 'N'

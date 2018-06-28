@@ -5,7 +5,7 @@ Created on Fri Jun 22 10:27:03 2018
 
 @author: demiliu
 """
-from data_smoothing import earth_smooth_matrix
+from peakaboo.data_smoothing import earth_smooth_matrix
 import numpy as np
 import matplotlib.pyplot as plt
 

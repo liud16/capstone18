@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-import find_peaks as findpeak
+import peakaboo.find_peaks as findpeak
 
 def find_nearest(array,value):
     idx = (np.abs(array-value)).argmin()
