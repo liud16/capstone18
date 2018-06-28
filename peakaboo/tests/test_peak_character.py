@@ -9,6 +9,7 @@ from peakaboo.peak_character import find_nearest, peakchar, peak_matrix
 import numpy as np
 import pandas as pd
 
+
 def test_find_nearest():
     array = 'string'
     value = 1
@@ -23,16 +24,16 @@ def test_find_nearest():
 def test_peakchar():
     data_nm = 'string'
     data_z = np.zeros((5, 5))
-    peak_idx = pd.DataFrame([[1, 2, 3], [1, 2, 3], \
-                             [1, 2, 3], [1, 2, 3], \
-                             [1, 2,3]])
+    peak_idx = pd.DataFrame([[1, 2, 3], [1, 2, 3],
+                             [1, 2, 3], [1, 2, 3],
+                             [1, 2, 3]])
     try:
         peakchar(data_nm, data_z, peak_idx)
     except TypeError:
         pass
     else:
         print('TypeError not handled', 'Check peak_finding output')
-        
+
     data_nm = np.random.rand(144)
     data_z = np.random.rand(144)
     peak_idx = [5, 50]
@@ -42,7 +43,7 @@ def test_peakchar():
         pass
     else:
         raise Exception('Bad type', 'Height is not np array')
-        
+
     if isinstance(fwhm, np.ndarray):
         pass
     else:
@@ -60,7 +61,7 @@ def test_peak_matrix():
         pass
     else:
         print('TypeError not handled', 'Check threshold or mindist type')
-    
+
     if isinstance(data_z, pd.core.frame.DataFrame):
         pass
     else:
