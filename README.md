@@ -41,6 +41,11 @@ Peakaboo is a software package for analysis of transient absorption (TA) data. I
     - Peak info is saved
 
 
+## Run test:
+
+- in ``tests`` directory, run ``pytest`` from command line:
+    ``python -m pytest``
+
 
 ## License
 
