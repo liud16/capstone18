@@ -10,16 +10,17 @@ branches:
        - master
 
 install:
-    - pip install coverage
     - pip install coveralls
     - pip install flake8
+    - pip install pytest
+    - pip install pytest-cov
     - pip install -r requirements.txt
 
 before_script:
     - flake8 peakaboo
 
 script:
-    - coverage run -m unittest discover
+    - py.test --pyargs peakaboo --cov-report term-missing --cov=peakaboo
 
 after_success:
     - coverage report
