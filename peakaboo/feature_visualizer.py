@@ -49,6 +49,8 @@ def visualize(peak_dict, data_nm):
         for j in df['Position']:
             nm_list.append(nm.loc[j].values[0])
 
+        return df
+
         df['Position'] = nm_list
         # plot peak position, intensity and width over time
         fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(12, 8))
