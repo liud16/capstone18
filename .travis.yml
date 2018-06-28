@@ -20,7 +20,7 @@ before_script:
     - flake8 peakaboo
 
 script:
-    - py.test --pyargs peekaboo --cov-report term-missing --cov=peekaboo
+    - py.test --pyargs peakaboo --cov-report term-missing --cov=peakaboo
 
 after_success:
     - coverage report
