@@ -21,27 +21,18 @@ Peakaboo is a software package for analysis of transient absorption (TA) data. I
 
 ## How to use the package
 
-- ```import peakaboo```
+- Run package from command line:
 
-### 1. Running __main__.py
-### This is a user interactive function that inputs user data and outputs peak characters
+    ``python -m peakaboo``
+### Workflow:
 
-- User provides data in .csv or .txt format and specifies wavelength range and time-zero
-- Reduce noise in data
-- Find peaks in data with user-specific selection criteria
-- Classify peak outputs
-- Visualize and fit peak kinetics to exponential function
-- Peak info is saved
+    - User provides data in .csv or .txt format and specifies wavelength range and time-zero
+    - Reduce noise in data
+    - Find peaks in data with user-specific selection criteria
+    - Classify peak outputs
+    - Visualize and fit peak kinetics to exponential function
+    - Peak info is saved
 
-### 2. Running individual function
-- The following ``.py`` files contain individual function for each step above: 
-    - data_smoothing.py: load data, reduce noise in data
-    - smoothing_visualize.py: visualize data in 2D contour plot
-    - find_peaks.py: find peaks
-    - peak_character.py: identify peak_utils
-    - peak_classify.py: classify disorganized peak info
-    - kinetics_fitting.py: fit peak dynamics to mono-exponential kinetics
-for example: peakaboo.data_smoothing
 
 
 ## License
