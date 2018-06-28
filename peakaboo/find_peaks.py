@@ -34,9 +34,9 @@ def indexes(y, thres=0.3, min_dist=1):
 
     thres = thres * (np.max(y) - np.min(y)) + np.min(y)
     min_dist = int(min_dist)
-    
-    assert type(thres) == 'float' or 'int', 'TypeError'
-    assert type(min_dist) == 'float' or 'int', 'TypeError'
+
+    assert isinstance(thres, 'float') or 'int', 'TypeError'
+    assert isinstance(min_dist, 'float') or 'int', 'TypeError'
     # compute first order difference
     dy = np.diff(y)
 
