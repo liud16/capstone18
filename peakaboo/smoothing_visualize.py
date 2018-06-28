@@ -49,7 +49,7 @@ def smoothing(nm, time, z):
 
     # check data shape doesn't change
     assert np.shape(z_smooth) == np.shape(z), \
-        'Unexpected change in matrix shape after smoothening'
+        'ShapeError'
 
     # contour plot of original data BEFORE smoothing
     original_contour = twodcontourplot(nm, time, z)
