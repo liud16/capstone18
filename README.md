@@ -8,7 +8,7 @@ Peakaboo is a software package for analysis of transient absorption (TA) data. I
 
 - Required softwares are listed in requirements.txt
 - ```pip install -r requirements.txt```
-- ```pip``` will check the softwares above except ```py-earth```
+- ```pip``` will check the required softwares
 
 
 
