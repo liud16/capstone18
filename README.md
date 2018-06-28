@@ -23,7 +23,11 @@ Peakaboo is a software package for analysis of transient absorption (TA) data. I
 
 - Run package from command line:
 
-    ``python -m peakaboo``
+    ``python -m peakaboo <filename>``
+
+- Please make sure file is in the correct directory and *do not* add extension
+
+
 ### Workflow:
 
     - User provides data in .csv or .txt format and specifies wavelength range and time-zero
