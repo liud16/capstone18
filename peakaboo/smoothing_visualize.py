@@ -56,7 +56,7 @@ def smoothing(nm, time, z):
     nm_contour, time_contour, min_contour, max_contour = original_contour[
         0], original_contour[1], original_contour[2], original_contour[3]
 
-    fig, (ax1, ax2) = plt.subplots(1, 2, dpi=300)
+    fig, (ax1, ax2) = plt.subplots(1, 2, dpi=100)
     ax1.set_title('Raw data', fontsize=20, fontweight='bold')
     ax1.set_xlabel('Wavelength (nm)', fontsize=20, fontweight='bold')
     ax1.set_ylabel('Time delay (ps)', fontsize=20, fontweight='bold')
