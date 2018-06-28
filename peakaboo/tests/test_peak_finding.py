@@ -1,4 +1,4 @@
-import peakaboo.peak_finding
+from peakaboo import finding
 import pandas as pd
 
 
