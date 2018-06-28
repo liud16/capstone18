@@ -1,10 +1,10 @@
 # Peakaboo
 
 [![PyPI version](https://badge.fury.io/py/PEAKABOO.svg)](https://badge.fury.io/py/PEAKABOO)
-[![Build Status](https://travis-ci.org/liud16/peakaboo.png?branch=master)](https://travis-ci.org/liud16/peakaboo)
-[![Coverage Status](https://coveralls.io/repos/github/liud16/peakaboo/badge.svg?branch=master)](https://coveralls.io/github/liud16/peakaboo?branch=master)
+[![Build Status](https://travis-ci.org/liud16/peakaboo.svg?branch=master)](https://travis-ci.org/liud16/peakaboo)
+[![Coverage Status](https://img.shields.io/coveralls/github/liud16/peakaboo[/master].svg)](https://coveralls.io/github/liud16/peakaboo?branch=master)
 
-Peakaboo is a software package for analysis of transient absorption (TA) data. It can identify self-consistent spectrally and temporally evolvin signatures of charge carriers after photoexcitation in TA data. With minimal assumption, our algorithm recovers and visualizes the spectral and kinetics information of the individual population by combining methods such as multivariate adaptive regression spline fitting and data clustering.
+Peakaboo is a software package for analysis of transient absorption (TA) data. It can self-consistently identify spectrally and temporally evolvin signatures of charge carriers after photoexcitation in TA data. With minimal assumption, our algorithm recovers and visualizes the spectral and kinetic information of individual populations by combining methods such as multivariate adaptive regression spline fitting and data clustering.
 
 
 
@@ -12,7 +12,7 @@ Peakaboo is a software package for analysis of transient absorption (TA) data. I
 
 - Required softwares are listed in requirements.txt
 - ```pip install -r requirements.txt```
-- ```pip``` will check the required softwares
+- ```pip``` will check the required software
 
 
 
@@ -29,7 +29,8 @@ Peakaboo is a software package for analysis of transient absorption (TA) data. I
 
     ``python -m peakaboo <filename>``
 
-- Please make sure file is in the correct directory and *do not* add extension
+- Please make sure file is in the directory from which you are running peakaboo
+- *Do not* add extension, you will be prompted to specify once peakaboo is initiated
 
 
 ### Workflow:
