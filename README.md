@@ -1,5 +1,6 @@
 # Peakaboo
 
+[![PyPI version](https://badge.fury.io/py/PEAKABOO.svg)](https://badge.fury.io/py/PEAKABOO)
 [![Build Status](https://travis-ci.org/liud16/peakaboo.png?branch=master)](https://travis-ci.org/liud16/peakaboo)
 [![Coverage Status](https://coveralls.io/repos/github/liud16/peakaboo/badge.svg?branch=master)](https://coveralls.io/github/liud16/peakaboo?branch=master)
 
