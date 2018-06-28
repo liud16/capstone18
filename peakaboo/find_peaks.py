@@ -7,34 +7,29 @@ Created on Fri May 25 06:38:05 2018
 """
 
 import numpy as np
-import peakutils
-from peakutils.plot import plot as pplot
-from matplotlib import pyplot as plt
-from scipy.optimize import curve_fit
-from scipy import interpolate
-import pandas as pd
 
 
 def indexes(y, thres=0.3, min_dist=1):
     """
-    Peak detection based on a gradient-method, 
+    Peak detection based on a gradient-method,
     adapted from peakutils.indexes
 
 
     Args:
-    y : 1D data array, numpy array    
-    thres : lowest intensity to call a feature a peak, 
+    y : 1D data array, numpy array
+    thres : lowest intensity to call a feature a peak,
     float between 0. and 1.
     min_dist : minimum distance between two peaks, int
-    
+
     Returns:
-    array of peak indices, numpy array        
+    array of peak indices, numpy array
 
     """
     y_raw = y
     y = [abs(k) for k in y_raw]
-    
-    if isinstance(y, np.ndarray) and np.issubdtype(y.dtype, np.unsignedinteger):
+
+    if isinstance(y, np.ndarray) and np.issubdtype(
+            y.dtype, np.unsignedinteger):
         raise ValueError("y must be signed")
 
     thres = thres * (np.max(y) - np.min(y)) + np.min(y)
@@ -43,25 +38,27 @@ def indexes(y, thres=0.3, min_dist=1):
     # compute first order difference
     dy = np.diff(y)
 
-    # propagate left and right values successively to fill all plateau pixels (0-value)
-    zeros,=np.where(dy == 0)
-    
+    # propagate left and right values successively to fill all plateau pixels
+    # (0-value)
+    zeros, = np.where(dy == 0)
+
     # check if the singal is totally flat
     if len(zeros) == len(y) - 1:
         return np.array([])
-    
+
     while len(zeros):
-        # add pixels 2 by 2 to propagate left and right value onto the zero-value pixel
+        # add pixels 2 by 2 to propagate left and right value onto the
+        # zero-value pixel
         zerosr = np.hstack([dy[1:], 0.])
         zerosl = np.hstack([0., dy[:-1]])
 
         # replace 0 with right value if non zero
-        dy[zeros]=zerosr[zeros]
-        zeros,=np.where(dy == 0)
+        dy[zeros] = zerosr[zeros]
+        zeros, = np.where(dy == 0)
 
         # replace 0 with left value if non zero
-        dy[zeros]=zerosl[zeros]
-        zeros,=np.where(dy == 0)
+        dy[zeros] = zerosl[zeros]
+        zeros, = np.where(dy == 0)
 
     # find the peaks by using the first order difference
     peaks = np.where((np.hstack([dy, 0.]) < 0.)

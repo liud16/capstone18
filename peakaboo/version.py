@@ -31,12 +31,12 @@ long_description = """
 
 PEAKABOO
 ========
-We have designed an open-source package to identify self-consistent spectrally 
-and temporally evolving signatures of charge carriers after photoexcitation in  
-transient absorption (TA) data. With minimal assumption, our algorithm recovers 
-and visualizes the spectral and kinetics information of the individual population 
-by combining methods such as multivariate adaptive regression spline fitting and 
-data clustering.
+We have designed an open-source package to identify self-consistent spectrally
+and temporally evolving signatures of charge carriers after photoexcitation in
+transient absorption (TA) data. With minimal assumption, our algorithm
+recovers and visualizes the spectral and kinetics information of
+the individual population by combining methods such as multivariate
+adaptive regression spline fitting anddata clustering.
 
 To get started using these components in your own software, please go to the
 repository README: https://github.com/liud16/peakaboo/README.md
@@ -64,4 +64,4 @@ MINOR = _version_minor
 MICRO = _version_micro
 VERSION = __version__
 PACKAGE_DATA = {'PEAKABOO': [pjoin('data', '*')]}
-REQUIRES = ["numpy","scipy","peakutils","sklearn","pandas","matplotlib"]
+REQUIRES = ["numpy", "scipy", "peakutils", "sklearn", "pandas", "matplotlib"]
