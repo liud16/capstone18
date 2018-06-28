@@ -34,11 +34,21 @@ def load_data(data_filename, startnm, endnm, starttime):
         data_z: a 2-way matrix, numpy matrix
 
     """
+    assert type(data_filename) == str, 'TypeError'
+    assert type(startnm) == float or int, 'TypeError'
+    assert type(endnm) == float or int, 'TypeError'
+    assert type(starttime) == float or int, 'TypeError'
+    
+    
     data = np.genfromtxt(data_filename, delimiter='\t')
     data_nm = data[1:, 0]
     data_time = data[0, 1:]
     data_z = data[1:, 1:]
-
+    
+    assert starttime >= data_time[0] or data_time[-1], 'ValueError'
+    assert startnm >= data_nm[0], 'ValueError'
+    assert endnm <= data_nm[-1], 'ValueError'
+    
     # trim wavelength array based on starting and ending wavlenth
     data_nm_use = data_nm[find_nearest(
         data_nm, startnm):find_nearest(data_nm, endnm)]
@@ -57,11 +67,20 @@ def load_data(data_filename, startnm, endnm, starttime):
 # load .csv data
 def load_data_csv(data_filename, startnm, endnm, starttime):
     """load matrix data"""
+    assert type(data_filename) == str, 'TypeError'
+    assert type(startnm) == float or int, 'TypeError'
+    assert type(endnm) == float or int, 'TypeError'
+    assert type(starttime) == float or int, 'TypeError'
+    
     data = np.genfromtxt(data_filename, delimiter=',', skip_footer=20)
     data_nm = np.nan_to_num(data[1:, 0])  # wavelength in nm
     data_time = np.nan_to_num(data[0, 1:])
     data_z = np.nan_to_num(data[1:, 1:])
 
+    assert starttime >= data_time[0] or data_time[-1], 'ValueError'
+    assert startnm >= data_nm[0], 'ValueError'
+    assert endnm <= data_nm[-1], 'ValueError'
+    
     # trim wavelength array based on starting and ending wavlenth
     data_nm_use = data_nm[find_nearest(data_nm, startnm):
                           find_nearest(data_nm, endnm)]
@@ -75,7 +94,6 @@ def load_data_csv(data_filename, startnm, endnm, starttime):
                         find_nearest(data_time, starttime):]
 
     return data_nm_use, data_time_use, data_z_use
-
 
 def earth_smoothing(nm_array, y_array):
     """
